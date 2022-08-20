@@ -1,0 +1,14 @@
+export { Activity } from './activity/activity.entity';
+export { Administrator } from './administrator/administrator.entity';
+export { Asistence } from './asistence/asistence.entity';
+export { Asset } from './asset/asset.entity';
+export { AssetBoot } from './asset/relation-asset.entity';
+export { Client } from './client/client.entity';
+export { Contract  } from './contract/contract.entity';
+export { ContractView  } from './contract/Contract.view';
+export { DetailFicha } from './ficha/Detail-ficha.entity';
+export { Ficha } from './ficha/ficha.entity';
+export { Plan } from './plan/plan.entity';
+export { Suscription } from './suscription/suscription.entity';
+export { User } from './user/user.entity';
+export * from './entities';

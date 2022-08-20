@@ -1,0 +1,55 @@
+# name: Nx wellness Application
+# on:
+#   push:
+#     branches: [main]
+# jobs:
+#   build:
+#     name: Prepare Application
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: executing remote ssh commands using key
+#         uses: fifsky/ssh-action@master
+#         with:
+#           command: cd repo && git pull && yarn
+#           host: ${{ secrets.HOST_SSH_DOKKU }}
+#           args: '-tt -vvv'
+#           user: ${{ secrets.USER_SSH_DOKKU }}
+#           key: ${{ secrets.SECRET_SSH }}
+
+#   deploy-api:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: executing commands for deploy api
+#         uses: fifsky/ssh-action@master
+#         with:
+#           command: |
+#             cd repo &&
+#             yarn nx build api --production  &&
+#             cd dist/apps/api &&
+#             docker build -f ../../../docker/Dockerfile.api -t leobar37/wellbackend:latest . &&
+#             dokku git:from-image wellbackend leobar37/wellbackend:latest &&
+#             dokku ps:rebuild wellbackend
+#           args: '-tt -vvv'
+#           host: ${{ secrets.HOST_SSH_DOKKU }}
+#           user: ${{ secrets.USER_SSH_DOKKU }}
+#           key: ${{ secrets.SECRET_SSH }}
+
+#   deploy-admin:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: executing commands for deploy admin
+#         uses: fifsky/ssh-action@master
+#         with:
+#           args: '-tt -vvv'
+#           command: |
+#             cd repo &&
+#             yarn nx build admin --production &&
+#             cd dist/apps/admin && 
+#             docker build -f ../../../docker/Dockerfile.wellfront -t leobar37/wellfront:latest . &&
+#             dokku git:from-image wellfront leobar37/wellfront:latest &&
+#             dokku ps:rebuild wellfront
+#           host: ${{ secrets.HOST_SSH_DOKKU }}
+#           user: ${{ secrets.USER_SSH_DOKKU }}
+#           key: ${{ secrets.SECRET_SSH }}

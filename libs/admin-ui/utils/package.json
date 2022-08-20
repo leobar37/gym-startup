@@ -1,0 +1,4 @@
+{
+  "main": "dist/wellness-admin-ui-utils.cjs.js",
+  "module": "dist/wellness-admin-ui-utils.esm.js"
+}

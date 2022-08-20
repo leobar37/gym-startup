@@ -1,0 +1,444 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Detail {
+  name: String!
+  description: String!
+  price: Float!
+}
+
+type Asistence {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  note: String!
+  client: Client
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type AssetBoot {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  assets: [Asset]!
+}
+
+type Asset {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  size: Float
+  previewUrl: String
+  boot: AssetBoot
+}
+
+type DetailFicha {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  weight: Float!
+  objective: String
+  note: String
+  open: Boolean!
+  asset: AssetBoot
+}
+
+type Ficha {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  closed: Boolean!
+  closedAt: DateTime
+  details: [DetailFicha!]!
+  client: Client!
+}
+
+type Client {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  photo: Asset
+  code: String!
+  dni: String!
+  email: String!
+  name: String!
+  lastName: String!
+  birth: DateTime
+  phone: String
+  direction: String
+  sex: Sex!
+  mode: ModeRegiser!
+  currentFicha: Ficha
+}
+
+enum Sex {
+  WOMEN
+  MEN
+  OTHER
+}
+
+enum ModeRegiser {
+  SELF
+  ADMIN
+}
+
+type Contract {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  note: String
+  paid: Boolean!
+  price: Float!
+  finishedAt: DateTime!
+  suscription: Suscription!
+}
+
+type Suscription {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  duration: Int!
+  active: Boolean!
+  mode: ModeSuscription!
+  finishedAt: DateTime
+  startAt: DateTime
+  contracts: [Contract]!
+}
+
+"""This enum determine the mode of a suscription"""
+enum ModeSuscription {
+  """"""
+  FIXED
+
+  """"""
+  DINAMIC
+}
+
+type Activity {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  detail: Detail!
+  suscription: Suscription!
+}
+
+type Administrator {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  dni: String!
+  lastName: String!
+  email: String!
+  password: String
+  rol: Role!
+}
+
+"""Describe the role of a administrator"""
+enum Role {
+  ADMIN
+  CLIENT
+  STAFF
+}
+
+type Plan {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  detail: Detail!
+  visible: Boolean!
+  suscription: Suscription!
+}
+
+"""This is a view table for show a resume of contract"""
+type ContractView {
+  clientId: ID!
+  suscriptionId: ID!
+  contractId: ID!
+  clientName: String!
+  clientLastName: String!
+  dni: String!
+  realPrice: Float!
+  note: String!
+  finished: Boolean!
+  paid: Boolean!
+  createdAt: DateTime!
+  finishedAt: DateTime!
+  price: Float
+  name: String
+  type: ServiceType
+  serviceId: ID
+  description: String
+}
+
+"""Type of the service (plan, activity)"""
+enum ServiceType {
+  plan
+  activity
+}
+
+type AccessTokenResponse {
+  access_token: String!
+}
+
+type ResponseSignature {
+  signature: String!
+  timestamp: Float!
+}
+
+type PlanProgress {
+  progress: Int!
+  contractLabel: String!
+  price: Int!
+  finishedAt: DateTime!
+  createdAt: DateTime!
+  daysLeft: Int!
+}
+
+type ClientReport {
+  clientId: Int!
+  planProgress: PlanProgress
+}
+
+type GrowthType {
+  label: String!
+  value: Float!
+}
+
+type AlertResult {
+  typeData: TypeDataAlertEnum!
+  label: String!
+  sublabel: String!
+  date: DateTime!
+  dateLabel: String!
+}
+
+"""The type of data for the Alert report"""
+enum TypeDataAlertEnum {
+  birthday
+  plans_to_overcome
+}
+
+type Query {
+  ping: String!
+  getAdministrators: [Administrator!]!
+  getAdministrator(id: ID!): Administrator!
+  clients: [Client!]!
+  client(id: ID!): Client!
+  finAsistences(cliendId: ID!): [Asistence!]!
+  getPlans(filters: FiltersPlan): [Plan!]!
+  getPlan(id: ID!): Plan!
+  getActivities(filters: FiltersActivity): [Activity!]!
+  getActivity(id: ID!): Activity!
+  getViewContracts(filters: FiContractsView): [ContractView!]!
+  clientReport(clientId: ID!): ClientReport!
+  getFicha(userId: Int!): Ficha
+  getFichas(userId: Int!): [Ficha!]
+  growthReport(input: GrowthInput!): [GrowthType!]!
+  alertsReport(input: AlertInput!): [AlertResult!]!
+}
+
+input FiltersPlan {
+  active: Boolean
+}
+
+input FiltersActivity {
+  active: Boolean
+}
+
+input FiContractsView {
+  clientId: ID
+  serviceId: ID
+  type: ServiceType
+}
+
+input GrowthInput {
+  interval: IntervaltimeEnum!
+  typeData: TypeDataEnum!
+}
+
+"""The time interval for the report"""
+enum IntervaltimeEnum {
+  LAST_WEEK
+  LAST_MONTH
+  LAST_YEAR
+}
+
+"""The type of data for the report"""
+enum TypeDataEnum {
+  plans
+  asistences
+  register_clients
+}
+
+input AlertInput {
+  typeData: TypeDataAlertEnum!
+}
+
+type Mutation {
+  registerAdmin(input: RegisterAdminInput!): Administrator!
+  deleteAdministrator(id: ID!): Administrator!
+  editAdministrator(id: ID!, input: RegisterAdminInput!): Administrator!
+  resetPassword(input: ResetPasswordInput!): Administrator!
+  resetPasswordFromAdmin(input: ResetPasswordInputFromAdmin!): Administrator!
+  registerClient(client: ClientInput!): Client!
+  updateCLient(id: ID!, input: ClientInput!): Client!
+  deleteCLient(id: ID!): Client!
+  createAsistence(asistence: InputAsistence!): Asistence!
+  deleteAsistence(id: ID!): Asistence!
+  updateAsistence(id: ID!, input: InputAsistence!): Asistence!
+  createPlan(input: PlanInput!): Plan!
+  deletePlan(id: ID!): Plan!
+  joinPlan(contract: ContractInput!): Contract!
+  updatePlan(id: ID!, input: PlanInput!): Plan!
+  createActivity(input: ActivityInput!): Activity!
+  deleteActivity(id: ID!): Activity!
+  joinActivity(contract: ContractInput!): Contract!
+  updateActivity(id: ID!, input: ActivityInput!): Activity!
+  editContract(input: ContractEditInput!): ContractView!
+  deleteContract(id: ID!): ContractView!
+  signature(publicId: String): ResponseSignature!
+  deleteResource(input: DeleteAssetInput!): ResourceUnion!
+  createResource(resource: AssetInput!): ResourceUnion!
+  editResource(resource: AssetEditInput!): ResourceUnion!
+  openAndCloseFicha(input: FichaInput!): Ficha!
+  updateFicha(input: FichaInput!, detailId: Int!): Ficha!
+  deleteFicha(fichaId: Int!): Ficha!
+  login(input: LoginAdminInput!): AccessTokenResponse!
+}
+
+input RegisterAdminInput {
+  name: String!
+  dni: String!
+  lastName: String!
+  email: String!
+  password: String
+  role: Role!
+}
+
+input ResetPasswordInput {
+  """Administratror id"""
+  id: ID!
+
+  """Prev password of the user"""
+  prevPassword: String!
+  newPassword: String!
+}
+
+input ResetPasswordInputFromAdmin {
+  """User id"""
+  userId: ID!
+
+  """Prev password of the user"""
+  adminPassword: String!
+  newPassword: String!
+}
+
+input ClientInput {
+  code: String
+  dni: String!
+  phone: String!
+  name: String!
+  lastName: String!
+  birthday: DateTime
+  direction: String!
+  email: String!
+  sex: Sex!
+  modeRegister: ModeRegiser!
+  photoId: Int
+}
+
+input InputAsistence {
+  createdAt: DateTime!
+  note: String
+  clientId: ID!
+}
+
+input PlanInput {
+  """Determine if this plan is visible for the users"""
+  visible: Boolean!
+  detail: DetailInput!
+  duration: Int!
+
+  """Determine if a plan is active"""
+  active: Boolean!
+}
+
+input DetailInput {
+  name: String!
+  description: String!
+  price: Float!
+}
+
+input ContractInput {
+  clientId: Float!
+  paid: Boolean!
+  price: Float!
+  note: String
+  planId: ID
+  activityId: ID
+}
+
+input ActivityInput {
+  visible: Boolean!
+  detail: DetailInput!
+  duration: Int!
+  mode: ModeSuscription!
+  startAt: DateTime
+}
+
+input ContractEditInput {
+  contractId: ID!
+  paid: Boolean!
+  price: Float!
+  note: String
+}
+
+union ResourceUnion = AssetBoot | Asset
+
+input DeleteAssetInput {
+  id: ID!
+  isMultiple: Boolean!
+}
+
+input AssetInput {
+  isMultiple: Boolean!
+  metadata: JSONObject
+  metadatas: [JSONObject!]
+  bootId: String
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input AssetEditInput {
+  id: ID!
+  metadata: JSONObject
+}
+
+input FichaInput {
+  weight: Float!
+  objective: String
+
+  """This images of the ficha"""
+  assetId: Float!
+  note: String
+
+  """When this is null , close the ficha"""
+  fichaId: ID
+  clientId: Int
+  open: Boolean
+}
+
+input LoginAdminInput {
+  email: String!
+  password: String!
+}

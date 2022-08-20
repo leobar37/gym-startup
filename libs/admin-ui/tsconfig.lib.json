@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
+  },
+  "files": [
+    "../../jest-setup-dom.ts"
+  ],
+  "exclude": ["**/*.spec.ts", "**/*.spec.tsx", "**/*.stories.tsx"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+}

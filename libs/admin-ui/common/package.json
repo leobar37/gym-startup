@@ -1,0 +1,5 @@
+{
+  "main": "dist/wellness-admin-ui-common.cjs.js",
+  "module": "dist/wellness-admin-ui-common.esm.js",
+  "types": "dist/wellness-admin-ui-common.cjs.d.ts"
+}

@@ -1,0 +1,66 @@
+{
+  "name": "wellness",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev --filter=@gymleo/admin --filter=@gymleo/api-core",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prepare": "husky install",
+    "fix": "preconstruct fix && manypkg fix",
+    "postinstall": "preconstruct dev && manypkg check",
+    "release": "turbo run build --filter=@gymleo/client --filter=@gymleo/common && changeset publish"
+  },
+  "workspaces": {
+    "nohoist": [
+      "@emotion/core/types",
+      "**/@emotion/core/types",
+      "**/@types/theme-ui",
+      "**/@types/theme-ui/**",
+      "**/@types/theme-ui__components"
+    ],
+    "packages": [
+      "libs/*",
+      "apps/*"
+    ]
+  },
+  "packageManager": "yarn@1.22.17",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.18.10",
+    "@babel/plugin-proposal-private-property-in-object": "^7.18.6",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@chakra-ui/babel-plugin": "^1.0.4",
+    "@chakra-ui/cli": "^2.1.0",
+    "@chakra-ui/storybook-addon": "^4.0.1",
+    "@changesets/cli": "^2.23.1",
+    "@graphql-codegen/cli": "^2.8.0",
+    "@manypkg/cli": "^0.19.1",
+    "@preconstruct/cli": "^2.1.8",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "babel-loader": "^8.2.5",
+    "husky": "^8.0.0",
+    "pretty-quick": "^3.1.3",
+    "rollup": "^2.75.6",
+    "turbo": "^1.4.3"
+  },
+  "preconstruct": {
+    "packages": [
+      "libs/common",
+      "libs/admin-ui"
+    ]
+  }
+}
