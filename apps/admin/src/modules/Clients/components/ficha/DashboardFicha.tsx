@@ -14,7 +14,6 @@ SwiperCore.use([Autoplay]);
 export const DashboardFicha: React.FC = () => {
   const { data: ficha } = useGetFicha();
 
-  console.log(ficha);
 
   const fichaNode = !isNull(ficha) ? (
     <FichaPreview ficha={ficha} />

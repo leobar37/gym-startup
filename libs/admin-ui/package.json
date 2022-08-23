@@ -7,7 +7,7 @@
   },
   "main": "dist/wellness-admin-ui.cjs.js",
   "module": "dist/wellness-admin-ui.esm.js",
-  "types": "dist/smartfood-ui.cjs.d.ts",
+  "types": "dist/wellness-admin-ui.cjs.d.ts",
   "private": false,
   "dependencies": {
     "@apollo/client": "^3.4.17",

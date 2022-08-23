@@ -7,7 +7,7 @@ import {
   useResetPasswordFromAdminMutation,
   useDeleteAdministratorMutation,
 } from '@wellness/admin-ui/common';
-import { useSomeTruthy } from '@wellness/admin-ui/hooks';
+import { useSomeTruthy } from '@wellness/admin-ui';
 import {
   CreateAdminT,
   ChangePasswordSchemaFromAdmin,

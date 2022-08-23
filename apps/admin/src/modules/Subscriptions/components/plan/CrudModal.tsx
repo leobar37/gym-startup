@@ -2,7 +2,7 @@ import { Button, HStack } from '@chakra-ui/react';
 import { isFunction as isFunc } from '@chakra-ui/utils';
 import { Plan } from '@wellness/admin-ui';
 import { ChackraForm, ModalCrud } from '@wellness/admin-ui/components';
-import { useChangues } from '@wellness/admin-ui/hooks';
+import { useChangues } from '@wellness/admin-ui';
 import { Formik, useFormikContext } from 'formik';
 import {
   CheckboxSingleControl,

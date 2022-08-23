@@ -5,7 +5,7 @@ import {
   useGetActivityQuery,
   useGetViewContractsQuery,
 } from '@wellness/admin-ui/common';
-import { useSomeTruthy } from '@wellness/admin-ui/hooks';
+import { useSomeTruthy } from '@wellness/admin-ui';
 import { isValid } from '@wellness/common';
 import { useEffect } from 'react';
 import { useSubscriptionsStore } from '../data';

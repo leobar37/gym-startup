@@ -1,23 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { IntervalTimeEnum } from '@wellness/common';
-import { EntityManager, Between } from 'typeorm';
-import getDay from 'date-fns/getDay';
-import getMonth from 'date-fns/getMonth';
-import startOfTheWeek from 'date-fns/startOfWeek';
-import startOfTheYear from 'date-fns/startOfYear';
-import startOfMonth from 'date-fns/startOfMonth';
-import differenceInDays from 'date-fns/differenceInDays';
-import differenceInMonths from 'date-fns/differenceInMonths';
+import { Asistence, Client, Contract } from "@wellness/core";
 import addDays from 'date-fns/addDays';
 import addMoth from 'date-fns/addMonths';
 import addWeeks from 'date-fns/addWeeks';
-import {Asistence , Client } from "@wellness/core";
-import { Contract } from '@wellness/core';
-import { range } from '@wellness/common';
-import { DaysMapper, MonthMapper } from '@wellness/common';
-import { ReportGrowthBuilder } from "./GrowthBuilder";
+import startOfMonth from 'date-fns/startOfMonth';
+import startOfTheWeek from 'date-fns/startOfWeek';
+import startOfTheYear from 'date-fns/startOfYear';
+import { Between, EntityManager } from 'typeorm';
 import { TypeDataEnum } from "../dto/growth.dto";
+import { ReportGrowthBuilder } from "./GrowthBuilder";
 
 @Injectable()
 export class GrowthHelper {
