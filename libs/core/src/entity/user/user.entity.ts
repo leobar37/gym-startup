@@ -14,7 +14,7 @@ export class User extends WellnessEntity {
   }
 
   @Column()
-  indentifier: string;
+  indentifier: string;  
 
   @Column()
   password: string;

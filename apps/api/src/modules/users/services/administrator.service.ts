@@ -46,7 +46,6 @@ export class AdministratorService implements OnModuleInit {
     const admin = await this.manager
       .getRepository(Administrator)
       .findOne({ email: input.email });
-    console.log(input);
     if (admin) {
       throw new BussinessError('Este administrador ya existe');
     }
@@ -60,7 +59,7 @@ export class AdministratorService implements OnModuleInit {
       email: input.email,
       rol: input.role,
     });
-    console.log("end pass",adminss);
+  
     const adminstratorData = await this.manager.save(
       Administrator,
       new Administrator({
