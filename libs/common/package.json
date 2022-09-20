@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "dist/wellness-common.cjs.js",
   "module": "dist/wellness-common.esm.js",
-  "types": "dist/smartfood-ui.cjs.d.ts",
+  "types": "dist/wellness-common.cjs.d.ts",
   "scripts": {
     "build": "preconstruct build"
   },

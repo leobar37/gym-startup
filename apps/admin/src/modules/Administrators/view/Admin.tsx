@@ -19,6 +19,7 @@ import { ChangePasswordModal } from '../components';
 import { useAdministratorController } from '../controllers';
 import { FC } from 'react';
 import { useChangues } from '@wellness/admin-ui';
+
 const Form: FC<{ user: TokenUser }> = ({ user }) => {
   const changePasswordModal = useChangePasswordModal();
   const [reset, setReset] = useState(false);
