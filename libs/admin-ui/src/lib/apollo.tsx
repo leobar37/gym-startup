@@ -23,7 +23,6 @@ import {
 import { isServer } from '../utils';
 import { isDev } from '@wellness/common';
 import { useDialogs } from '../ui/dialogs';
-import nodeFetch from 'node-fetch';
 const APOLLO_PROP_NAME = '__APOLLO__STATE';
 
 // authorization

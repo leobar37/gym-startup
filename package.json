@@ -10,6 +10,7 @@
     "dev:api": "turbo run dev --filter=@wellness/api-core --filter=@wellness/core",
     "dev:app" : "turbo run dev --filter=@wellness/api-core --filter=@wellness/core --filter=@wellness/admin",
     "storybook": "start-storybook -p 6006",
+    "dev:app": "turbo run dev --filter=@wellness/admin --filter=@wellness/api-core --filter=@wellness/core",
     "build-storybook": "build-storybook",
     "prepare": "husky install",
     "fix": "preconstruct fix && manypkg fix",
