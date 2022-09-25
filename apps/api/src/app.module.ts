@@ -6,8 +6,13 @@ import { GraphQLModule } from '@nestjs/graphql';
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { isDev, SafeAny } from '@wellness/common';
-import { coreEntitiesMap, EventBusModule, LoggerWellnessModule } from '@wellness/core';
+import {
+  coreEntitiesMap,
+  EventBusModule,
+  LoggerWellnessModule
+} from '@wellness/core';
 import { resolve } from 'path';
+import { } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RequestContextService } from './common/context';
 import { AsistenceModule } from './modules/asistence';
@@ -17,7 +22,6 @@ import { PingModule } from './modules/ping';
 import { ReportsModule } from './modules/reports';
 import { SuscriptionModule } from './modules/suscriptions';
 import { UserModule } from './modules/users';
-
 const BUSINESS_MODULES = [
   PingModule,
   UserModule,
@@ -48,14 +52,16 @@ const BUSINESS_MODULES = [
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => {
         const config = {
-          username: configService.get('BD_USER') as string,
-          password: configService.get('BD_PASS') as string,
+          url: configService.get('DB_URL') as string,
           type: 'postgres',
-          host: configService.get('BD_HOST'),
-          port: configService.get('BD_PORT'),
-          database: configService.get('BD_DATABASE'),
           entities: [...Object.values(coreEntitiesMap)],
           synchronize: isDev,
+          ssl: true,
+          extra: {
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          },
         } as TypeOrmModuleOptions;
         console.log(config);
         return config as SafeAny;
