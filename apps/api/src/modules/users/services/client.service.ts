@@ -45,7 +45,11 @@ export class ClientService {
   }
 
   public async findOne(id: ID) {
-    const client = await this.repository.findOne(id);
+    const client = await this.repository.findOne({
+      where: {
+        id: id as number,
+      },
+    });
     return client;
   }
 
@@ -62,7 +66,11 @@ export class ClientService {
   }
 
   private async existCLient(id: ID) {
-    const clientFound = await this.repository.findOne(id);
+    const clientFound = await this.repository.findOne({
+      where: {
+        id: id as number,
+      },
+    });
     if (!clientFound) {
       throw new EntityNotFoundError('Client', clientFound.id);
     }

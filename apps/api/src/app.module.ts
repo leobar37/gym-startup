@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ModuleRef } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
-import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { isDev, SafeAny } from '@wellness/common';
 import {
@@ -12,7 +11,7 @@ import {
   LoggerWellnessModule
 } from '@wellness/core';
 import { resolve } from 'path';
-import { } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RequestContextService } from './common/context';
 import { AsistenceModule } from './modules/asistence';
@@ -62,7 +61,8 @@ const BUSINESS_MODULES = [
               rejectUnauthorized: false,
             },
           },
-        } as TypeOrmModuleOptions;
+          logging : true
+        } as DataSourceOptions;
         console.log(config);
         return config as SafeAny;
       },

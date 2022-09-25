@@ -29,7 +29,7 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/schedule": "^1.0.1",
-    "@nestjs/typeorm": "^8.0.2",
+    "@nestjs/typeorm": "^9.0.1",
     "@wellness/common": "*",
     "apollo-server-express": "^3.4.0",
     "axios": "^0.24.0",
@@ -59,6 +59,6 @@
     "regenerator-runtime": "0.13.7",
     "tsc-watch": "^5.0.3",
     "tslib": "^2.4.0",
-    "typeorm": "^0.2.38"
+    "typeorm": "^0.3.10"
   }
 }

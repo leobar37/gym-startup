@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { Client, DetailFicha, Ficha } from '@wellness/core';
-import { EntityNotFoundError } from '@wellness/core';
+import {
+  Client,
+  DetailFicha,
+  EntityNotFoundError,
+  Ficha,
+} from '@wellness/core';
 import { EntityManager } from 'typeorm';
 import { FichaInput } from '../dto/ficha.input';
 @Injectable()
@@ -53,16 +57,28 @@ export class FichaService {
       closed: true,
       closedAt: new Date(),
     });
-    return this.manager.findOne(Ficha, ficha.id);
+    return this.manager.findOne(Ficha, {
+      where: {
+        id: ficha.id,
+      },
+    });
   }
 
   public async updateFicha(inputFicha: FichaInput, detailId: number) {
-    const ficha = await this.manager.findOne(Ficha, inputFicha.fichaId);
+    const ficha = await this.manager.findOne(Ficha, {
+      where: {
+        id: inputFicha.fichaId,
+      },
+    });
     const open = inputFicha.open;
     if (!ficha) {
       throw new EntityNotFoundError('Ficha', inputFicha.fichaId);
     }
-    const detail = await this.manager.findOne(DetailFicha, detailId);
+    const detail = await this.manager.findOne(DetailFicha, {
+      where: {
+        id: detailId,
+      },
+    });
     if (!detail) {
       throw new EntityNotFoundError('DetailFicha', detail.id);
     }
@@ -79,7 +95,11 @@ export class FichaService {
    */
 
   public async getFicha(userId: number) {
-    const user = await this.manager.findOne(Client, userId);
+    const user = await this.manager.findOne(Client, {
+      where: {
+        id: userId,
+      },
+    });
     if (!user) {
       throw new EntityNotFoundError('Client', userId);
     }
@@ -96,7 +116,11 @@ export class FichaService {
    * Return all fichas for a user
    */
   public async getFichas(userId: number) {
-    const user = await this.manager.findOne(Client, userId);
+    const user = await this.manager.findOne(Client, {
+      where: {
+        id: userId,
+      },
+    });
     if (!user) {
       throw new EntityNotFoundError('Client', userId);
     }
@@ -112,7 +136,11 @@ export class FichaService {
    *
    */
   public async deleteFicha(fichaId: number) {
-    const ficha = await this.manager.findOne(Ficha, fichaId);
+    const ficha = await this.manager.findOne(Ficha, {
+      where: {
+        id: fichaId,
+      },
+    });
     if (!ficha) {
       throw new EntityNotFoundError('Ficha', fichaId);
     }

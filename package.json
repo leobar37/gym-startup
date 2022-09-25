@@ -8,7 +8,6 @@
     "lint": "turbo run lint",
     "dev:front": "turbo run dev --filter=@wellness/admin",
     "dev:api": "turbo run dev --filter=@wellness/api-core --filter=@wellness/core",
-    "dev:app" : "turbo run dev --filter=@wellness/api-core --filter=@wellness/core --filter=@wellness/admin",
     "storybook": "start-storybook -p 6006",
     "dev:app": "turbo run dev --filter=@wellness/admin --filter=@wellness/api-core --filter=@wellness/core",
     "build-storybook": "build-storybook",

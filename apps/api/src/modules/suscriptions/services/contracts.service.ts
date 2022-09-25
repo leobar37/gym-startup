@@ -4,13 +4,12 @@ import {
   isValid,
   removeInvalids,
   SafeAny,
-  ServiceType,
+  ServiceType
 } from '@wellness/common';
-import { Contract, EntityNotFoundError } from '@wellness/core';
-import { EntityManager, FindConditions, FindManyOptions } from 'typeorm';
+import { Contract, ContractView, EntityNotFoundError } from '@wellness/core';
+import { EntityManager, FindManyOptions, FindOptionsWhere } from 'typeorm';
 import { ContractEditInput } from '../dto/contract.input';
 import { FiContractsView } from '../dto/filters.input';
-import { ContractView } from '@wellness/core';
 
 @Injectable()
 export class ContractsViewService {
@@ -31,7 +30,7 @@ export class ContractsViewService {
           ...(findOptions.where as SafeAny),
           planId: isPlan ? filters.serviceId : undefined,
           activityId: !isPlan ? filters.serviceId : undefined,
-        } as FindConditions<ContractView>;
+        } as FindOptionsWhere<ContractView>;
       }
     }
     findOptions.order = {
@@ -45,7 +44,11 @@ export class ContractsViewService {
   }
   // update a contract
   async editContract(input: ContractEditInput) {
-    const contract = await this.manager.findOne(Contract, input.contractId);
+    const contract = await this.manager.findOne(Contract, {
+      where : {
+        id : input.contractId
+      }
+    });
     if (!contract) {
       throw new EntityNotFoundError('Contract', contract.id);
     }

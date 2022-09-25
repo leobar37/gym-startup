@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Activity, Contract, Suscription } from '@wellness/core';
-import {
-  BussinessError,
-  EntityNotFoundError,
-} from '@wellness/core';
+import { BussinessError, EntityNotFoundError } from '@wellness/core';
 import { Repository } from 'typeorm';
 import { ActivityInput } from '../dto/activity.input';
 import { CRUD, ModeSuscription, omit } from '@wellness/common';
@@ -12,11 +9,7 @@ import { add } from 'date-fns';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { WelnessLogger } from '@wellness/core';
-import {
-  ContractEvent,
-  EventBus,
-  SuscriptionEvent,
-} from '@wellness/core';
+import { ContractEvent, EventBus, SuscriptionEvent } from '@wellness/core';
 import { ContractInput } from '../dto/contract.input';
 import addDays from 'date-fns/addDays';
 import { FiltersActivity } from '../dto/filters.input';
@@ -70,7 +63,11 @@ export class ActivityService {
     return activitySaved;
   }
   private async existActivity(id: number) {
-    const activity = await this.repository.findOne(id);
+    const activity = await this.repository.findOne({
+      where: {
+        id: id,
+      },
+    });
     if (!activity) {
       throw new EntityNotFoundError('Activity', id);
     }
@@ -172,7 +169,11 @@ export class ActivityService {
         startAt: input.startAt,
       });
 
-      return this.repository.findOne(activity.id);
+      return this.repository.findOne({
+        where: {
+          id: activity.id,
+        },
+      });
     } catch (error) {
       const humanText = 'No se ha podido editar la actividad';
       this.logger.error(humanText, error);
@@ -181,7 +182,11 @@ export class ActivityService {
   }
 
   async findActivity(id: number) {
-    const activity = await this.repository.findOne(id);
+    const activity = await this.repository.findOne({
+      where: {
+        id: id,
+      },
+    });
 
     return activity;
   }

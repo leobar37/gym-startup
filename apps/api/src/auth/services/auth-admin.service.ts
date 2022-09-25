@@ -1,10 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
-import { Administrator } from '@wellness/core';
 import { JwtService } from '@nestjs/jwt';
+import { InjectEntityManager } from '@nestjs/typeorm';
 import { omit } from '@wellness/common';
-import { BycriptService } from '@wellness/core';
+import { Administrator, BycriptService } from '@wellness/core';
+import { EntityManager } from 'typeorm';
 import { LoginAdminInput } from '../dto';
 import { AccessTokenResponse } from '../model';
 
@@ -18,7 +17,9 @@ export class AuthAdminService {
   async validate(email: string, password: string): Promise<Administrator> {
     const admin = await this.manager
       .getRepository(Administrator)
-      .findOne({ email });
+      .findOne({ where : {
+        email
+      }});
 
     const isValid = await this.bcryptService.compare(password, admin.password);
     if (admin && isValid) {
