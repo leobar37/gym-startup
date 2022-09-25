@@ -45,7 +45,7 @@ export class AdministratorService implements OnModuleInit {
   async registerAdmin(input: RegisterAdminInput) {
     const admin = await this.manager
       .getRepository(Administrator)
-      .findOne({ email: input.email });
+      .findOne({ where: { email: input.email } });
     if (admin) {
       throw new BussinessError('Este administrador ya existe');
     }
@@ -59,7 +59,7 @@ export class AdministratorService implements OnModuleInit {
       email: input.email,
       rol: input.role,
     });
-  
+
     const adminstratorData = await this.manager.save(
       Administrator,
       new Administrator({
@@ -79,9 +79,11 @@ export class AdministratorService implements OnModuleInit {
    * the administrator
    */
   public async resetPassword(input: ResetPasswordInput) {
-    const admin = await this.manager
-      .getRepository(Administrator)
-      .findOne(input.id);
+    const admin = await this.manager.getRepository(Administrator).findOne({
+      where: {
+        id: input.id as number,
+      },
+    });
     if (!admin) {
       throw new BussinessError('Este administador no existe');
     }
@@ -114,13 +116,21 @@ export class AdministratorService implements OnModuleInit {
   ) {
     const adminTarget = await this.manager
       .getRepository(Administrator)
-      .findOne(input.userId);
+      .findOne({
+        where: {
+          id: input.userId as number,
+        },
+      });
 
     if (!adminTarget) {
       throw new BussinessError('Este administrador no existe');
     }
 
-    const admin = await this.manager.findOne(Administrator, currentUser.id);
+    const admin = await this.manager.findOne(Administrator, {
+      where: {
+        id: currentUser.id,
+      },
+    });
     const passwordIsValid = await this.bcryptService.compare(
       input.adminPassword,
       admin.password
@@ -139,7 +149,11 @@ export class AdministratorService implements OnModuleInit {
   }
 
   public async updateAdmin(id: ID, input: RegisterAdminInput) {
-    const admin = await this.manager.getRepository(Administrator).findOne(id);
+    const admin = await this.manager.getRepository(Administrator).findOne({
+      where: {
+        id: id as number,
+      },
+    });
 
     if (!admin) {
       throw new BussinessError('Este administador no existe');
@@ -163,7 +177,11 @@ export class AdministratorService implements OnModuleInit {
   }
 
   public async deleteAdministrator(id: ID) {
-    const admin = await this.manager.getRepository(Administrator).findOne(id);
+    const admin = await this.manager.getRepository(Administrator).findOne({
+      where: {
+        id: id as number,
+      },
+    });
 
     if (!admin) {
       throw new BussinessError('Este administrador no existe');
@@ -188,6 +206,10 @@ export class AdministratorService implements OnModuleInit {
 
   // list administrators
   async getAdministrator(id: ID) {
-    return this.administratorRepository.findOne(id);
+    return this.administratorRepository.findOne({
+      where: {
+        id: id as number,
+      },
+    });
   }
 }

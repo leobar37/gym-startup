@@ -1,7 +1,8 @@
 import { ObjectType, registerEnumType, Field } from '@nestjs/graphql';
 import { DeepPartial, Role } from '@wellness/common';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { WellnessEntity } from '../base/base.entity';
+import { AdministratorGym } from './administratorGym.entity';
 /**
  * @description
  */
@@ -42,4 +43,9 @@ export class Administrator extends WellnessEntity {
   @Column({ type: 'varchar' })
   @Field((type) => Role)
   rol: Role;
+
+  // relationship with gym
+
+  @OneToMany(() => AdministratorGym, (entity) => entity.administrator)
+  administratorGym: Promise<AdministratorGym[]>;
 }

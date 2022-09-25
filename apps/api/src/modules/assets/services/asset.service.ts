@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryResponse, CRUD, SafeAny } from '@wellness/common';
-import { CloudinaryService } from '@wellness/core';
-import { EntityNotFoundError } from '@wellness/core';
-import { Asset, AssetBoot } from '@wellness/core';
-import { AssetEvent, EventBus } from '@wellness/core';
+import { Asset, AssetBoot, AssetEvent, CloudinaryService, EntityNotFoundError, EventBus } from '@wellness/core';
 import { EntityManager, Repository } from 'typeorm';
 import { AssetInput } from '../dto/createAsset.input';
 import { DeleteAssetInput } from '../dto/deleteAsset.input';
@@ -27,7 +24,11 @@ export class AssetService {
   }
 
   async editResource(input: AssetEditInput) {
-    const asset = await this.assetRepository.findOne(input.id);
+    const asset = await this.assetRepository.findOne({
+      where : {
+        id : input.id
+      }
+    });
     if (!asset) {
       throw new EntityNotFoundError('Asset', asset.id);
     }
@@ -38,7 +39,11 @@ export class AssetService {
     });
     await this.deleteFile((asset.metadata as CloudinaryResponse).public_id);
 
-    return this.assetRepository.findOne(input.id);
+    return this.assetRepository.findOne({
+      where : {
+        id : input.id
+      }
+    });
   }
 
   async createResource(inputAsset: AssetInput): Promise<Asset | AssetBoot> {
@@ -90,7 +95,11 @@ export class AssetService {
   async deleteResource(input: DeleteAssetInput) {
     const isAsset = !input.isMultiple;
     const deleteAsset = async (idAsset: number, manager: EntityManager) => {
-      const assetBd = await manager.findOne(Asset, idAsset);
+      const assetBd = await manager.findOne(Asset, {
+        where : {
+          id : idAsset
+        }
+      });
       if (!assetBd) {
         throw new EntityNotFoundError('Asset', idAsset);
       }
@@ -103,7 +112,11 @@ export class AssetService {
       return deleteAsset(input.id, this.manager);
     } else {
       return this.manager.transaction(async (manager) => {
-        const assetBoot = await manager.findOne(AssetBoot, input.id);
+        const assetBoot = await manager.findOne(AssetBoot,  {
+          where : {
+            id :  input.id
+          }
+        });
         if (!assetBoot) {
           throw new EntityNotFoundError('AssetBoot', input.id);
         }

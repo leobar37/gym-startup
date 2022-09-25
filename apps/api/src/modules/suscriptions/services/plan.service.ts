@@ -2,16 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { CRUD, ModeSuscription, omit } from '@wellness/common';
 import { Contract, Suscription } from '@wellness/core';
-import {
-  BussinessError,
-  EntityNotFoundError,
-} from '@wellness/core';
+import { BussinessError, EntityNotFoundError } from '@wellness/core';
 import { Plan } from '@wellness/core';
-import {
-  ContractEvent,
-  EventBus,
-  SuscriptionEvent,
-} from '@wellness/core';
+import { ContractEvent, EventBus, SuscriptionEvent } from '@wellness/core';
 import addDays from 'date-fns/addDays';
 import { EntityManager, Repository } from 'typeorm';
 import { ContractInput } from '../dto/contract.input';
@@ -60,11 +53,19 @@ export class PlanService {
       duration: input.duration,
       active: input.active,
     });
-    return this.repository.findOne(plan.id);
+    return this.repository.findOne({
+      where: {
+        id: plan.id,
+      },
+    });
   }
 
   private async existPlan(id: number) {
-    const plan = await this.repository.findOne(id);
+    const plan = await this.repository.findOne({
+      where: {
+        id: id,
+      },
+    });
     if (!plan) {
       throw new EntityNotFoundError('Plan', id);
     }
@@ -147,6 +148,10 @@ export class PlanService {
   }
 
   public async getPlan(id: number) {
-    return this.repository.findOne(id);
+    return this.repository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 }

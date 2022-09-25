@@ -19,6 +19,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ email }: TokenPayload) {
-    return this.manager.getRepository(Administrator).findOne({ email });
+    return this.manager.getRepository(Administrator).findOne({ where : {
+       email :  email
+    }});
   }
 }
