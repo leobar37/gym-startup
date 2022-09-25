@@ -1,19 +1,22 @@
-import { WellnessEntity } from '../base/base.entity';
-import { Column, Entity } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { DeepPartial } from '@wellness/common';
+import { Column, Entity, JoinTable, JoinColumn, ManyToMany, OneToOne } from 'typeorm';
+import { SedeSharedConnection } from '../../common/types';
+import { WellnessEntity } from '../base/base.entity';
 import { Detail } from '../detail-plan';
+import { Sede } from '../sede/Sede.entity';
 import { Suscription } from '../suscription/suscription.entity';
-import { OneToOne, JoinColumn } from 'typeorm';
+
 /**
  * @description
  */
 @Entity()
 @ObjectType()
-export class Plan extends WellnessEntity {
+export class Plan extends WellnessEntity implements SedeSharedConnection {
   constructor(input: DeepPartial<Plan>) {
     super(input);
   }
+
   @Column(() => Detail)
   @Field((type) => Detail)
   detail: Detail;
@@ -31,4 +34,8 @@ export class Plan extends WellnessEntity {
   @Field((type) => Suscription)
   @JoinColumn()
   suscription: Promise<Suscription>;
+
+  @ManyToMany(() => Sede)
+  @JoinTable()
+  sedes: Sede[];
 }

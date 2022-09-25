@@ -1,19 +1,21 @@
-import { WellnessEntity } from '../base/base.entity';
-import { Entity, Column, ManyToOne } from 'typeorm';
-import { ObjectType, Field, Float } from '@nestjs/graphql';
+import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { DeepPartial, SafeAny } from '@wellness/common';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
+import { SedeSharedConnection } from '../../common/types/Sede.types';
+import { WellnessEntity } from '../base/base.entity';
+import { Sede } from '../sede/Sede.entity';
 import { AssetBoot } from './relation-asset.entity';
-
 /**
  * @description
  */
 
 @Entity()
 @ObjectType()
-export class Asset extends WellnessEntity {
+export class Asset extends WellnessEntity implements SedeSharedConnection {
   constructor(input: DeepPartial<Asset>) {
     super(input);
   }
+
 
   @Column()
   @Field()
@@ -36,4 +38,8 @@ export class Asset extends WellnessEntity {
   @ManyToOne((type) => AssetBoot, (boot) => boot.assets, { nullable: true })
   @Field((type) => AssetBoot, { nullable: true })
   boot: AssetBoot;
+  // connection with sede
+  @ManyToMany(() => Sede)
+  @JoinTable()
+  sedes: Sede[];
 }

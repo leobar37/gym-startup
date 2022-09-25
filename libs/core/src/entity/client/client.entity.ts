@@ -1,5 +1,5 @@
 import { WellnessEntity } from '../base/base.entity';
-import { Entity, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, OneToMany ,ManyToMany , JoinTable } from 'typeorm';
 import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { DeepPartial, Sex, ModeRegiser } from '@wellness/common';
 import { User } from '../user/user.entity';
@@ -8,6 +8,8 @@ import { Asset } from '../asset/asset.entity';
 import { Contract } from '../contract/contract.entity';
 import { HasNote } from '@wellness/common';
 import { Ficha } from '../ficha/ficha.entity';
+import { SedeSharedConnection } from '../../common/types'
+import { Sede } from '../sede/Sede.entity';
 
 registerEnumType(Sex, {
   name: 'Sex',
@@ -21,10 +23,11 @@ registerEnumType(ModeRegiser, {
  */
 @Entity()
 @ObjectType()
-export class Client extends WellnessEntity implements HasNote {
+export class Client extends WellnessEntity implements HasNote , SedeSharedConnection {
   constructor(input: DeepPartial<Client>) {
     super(input);
   }
+
 
   @Column({ nullable: true })
   photoId: number;
@@ -101,4 +104,8 @@ export class Client extends WellnessEntity implements HasNote {
 
   @Field((type) => Ficha, { nullable: true })
   currentFicha: Promise<Ficha>;
+
+  @ManyToMany(() => Sede)
+  @JoinTable()
+  sedes: Sede[];
 }
