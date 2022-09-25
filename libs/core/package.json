@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsc -p ./tsconfig.lib.json --watch",
+    "dev": "tsc-watch -p ./tsconfig.lib.json --onSuccess \"\node ./index.js\"",
     "build": "rimraf dist && tsc -p ./tsconfig.lib.json"
   },
   "peerDependencies": {
@@ -57,6 +57,7 @@
     "pluralize": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
+    "tsc-watch": "^5.0.3",
     "tslib": "^2.4.0",
     "typeorm": "^0.2.38"
   }

@@ -14,5 +14,5 @@
     "skipDefaultLibCheck": true,
   },
   "include": ["./jest-setup-dom.ts"],
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp" , "dist"]
 }
