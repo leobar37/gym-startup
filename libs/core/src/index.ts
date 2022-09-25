@@ -6,3 +6,4 @@ export * from './config';
 export * from './common/error';
 export * from './helpers';
 export * from "./event-bus"
+export * from "./connection"

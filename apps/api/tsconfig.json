@@ -4,9 +4,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./src",
     "module": "CommonJS",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@wellness/core" : ["../../libs/core/src/index.ts"]
+    }
   }
 }
