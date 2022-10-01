@@ -21,6 +21,25 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Administrator {
+  id: ID!
+  createdAt: DateTime!
+  updateAt: DateTime!
+  name: String!
+  dni: String!
+  lastName: String!
+  email: String!
+  password: String
+  rol: Role!
+}
+
+"""Describe the role of a administrator"""
+enum Role {
+  ADMIN
+  CLIENT
+  STAFF
+}
+
 type AssetBoot {
   id: ID!
   createdAt: DateTime!
@@ -126,25 +145,6 @@ type Activity {
   updateAt: DateTime!
   detail: Detail!
   suscription: Suscription!
-}
-
-type Administrator {
-  id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime!
-  name: String!
-  dni: String!
-  lastName: String!
-  email: String!
-  password: String
-  rol: Role!
-}
-
-"""Describe the role of a administrator"""
-enum Role {
-  ADMIN
-  CLIENT
-  STAFF
 }
 
 """This is a view table for show a resume of contract"""

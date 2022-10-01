@@ -1,19 +1,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
     "sourceMap": true,
-    "declaration": false,
     "moduleResolution": "node",
+    "lib": ["es2019", "esnext.asynciterable"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    
   },
   "include": ["./jest-setup-dom.ts"],
-  "exclude": ["node_modules", "tmp" , "dist"]
+  "exclude": ["node_modules", "tmp" , "dist/**/*"]
 }

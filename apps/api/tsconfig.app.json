@@ -4,10 +4,14 @@
     "outDir": "dist",
     "module": "commonjs",
     "types": ["node"],
-    "emitDecoratorMetadata": true,
     "target": "es2015",
     "esModuleInterop": true
   },
+  "references": [
+    {
+      "path": "../../libs/core"
+    }
+  ],
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]
 }

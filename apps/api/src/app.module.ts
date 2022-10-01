@@ -18,8 +18,7 @@ import { FichaModule } from './modules/ficha';
 import { PingModule } from './modules/ping';
 import { ReportsModule } from './modules/reports';
 import { SuscriptionModule } from './modules/suscriptions';
-import { UserModule } from './modules/users';2
-import {  } from '@wellness/core'
+import { UserModule } from './modules/users';
 const BUSINESS_MODULES = [
   PingModule,
   UserModule,

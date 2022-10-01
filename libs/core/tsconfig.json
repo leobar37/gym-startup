@@ -1,17 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "dist",
-    "declaration": true,
-    "types": ["node"],
+    "outDir": "./dist",
     "target": "es6",
     "baseUrl": ".",
+    "rootDir": "src",
     "isolatedModules": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noEmit": true
   },
+  "exclude": ["dist/**/*"],
   "include": ["src"],
-  "references": []
+  "references": [
+    {
+      "path": "../common"
+    }
+  ]
 }

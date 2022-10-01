@@ -3,12 +3,14 @@
   "include": ["src"],
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "./dist",
-    "module": "CommonJS",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "paths": {
-      "@wellness/core" : ["../../libs/core/src/index.ts"]
+    "outDir": "./dist"
+  },
+  "references": [
+    {
+      "path": "../../libs/core"
+    },
+    {
+      "path": "../../libs/common"
     }
-  }
+  ]
 }
