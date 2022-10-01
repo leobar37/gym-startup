@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -12,7 +13,9 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "composite": true,
+    "incremental": true
   },
   "include": ["./jest-setup-dom.ts"],
-  "exclude": ["node_modules", "tmp" , "dist"]
+  "exclude": ["node_modules", "tmp", "dist"]
 }
