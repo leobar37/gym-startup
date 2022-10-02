@@ -5,13 +5,13 @@
     "target": "es6",
     "baseUrl": ".",
     "rootDir": "src",
-    "isolatedModules": false,
+    "isolatedModules": false
   },
   "exclude": ["dist/**/*"],
   "include": ["src"],
   "references": [
     {
-      "path": "../common"
+      "path": "../common/tsconfig.json"
     }
   ]
 }
