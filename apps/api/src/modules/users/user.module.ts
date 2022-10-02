@@ -6,6 +6,7 @@ import { Administrator, Client } from '@wellness/core';
 import { BycriptService } from '@wellness/core';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
 const UTILS = [BycriptService];
 
 const SERVICES = [ClientService, AdministratorService];

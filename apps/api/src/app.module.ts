@@ -7,7 +7,7 @@ import { SafeAny } from '@wellness/common';
 import {
   EventBusModule,
   LoggerWellnessModule,
-  ConnectionModule
+  ConnectionModule,
 } from '@wellness/core';
 import { resolve } from 'path';
 import { AuthModule } from './auth/auth.module';
@@ -19,6 +19,8 @@ import { PingModule } from './modules/ping';
 import { ReportsModule } from './modules/reports';
 import { SuscriptionModule } from './modules/suscriptions';
 import { UserModule } from './modules/users';
+import { CacheConfigModule } from '@wellness/core';
+
 const BUSINESS_MODULES = [
   PingModule,
   UserModule,
@@ -47,7 +49,7 @@ const BUSINESS_MODULES = [
       ignoreEnvFile: true,
       isGlobal: true,
     }),
-   
+    CacheConfigModule,
   ],
   controllers: [],
   providers: [RequestContextService],

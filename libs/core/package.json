@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsc-watch -p ./tsconfig.json --onSuccess \"\node ./dist/index.js\"",
+    "dev": "tsc-watch -p ./tsconfig.json --onSuccess 'node ./dist/index.js'",
     "build": "rimraf dist && tsc -p ./tsconfig.lib.json"
   },
   "peerDependencies": {

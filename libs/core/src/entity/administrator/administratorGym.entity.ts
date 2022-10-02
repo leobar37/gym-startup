@@ -9,7 +9,6 @@ export class AdministratorGym extends WellnessEntity {
   constructor(input: DeepPartial<AdministratorGym>) {
     super(input);
   }
-
   // relationship with administrator
   administratorId: number;
 
